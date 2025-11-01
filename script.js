@@ -50,7 +50,7 @@ function createFallingTulip() {
   tulip.src = 'https://i.imgur.com/xZlfQ0n.png';
   tulip.className = 'tulip';
   tulip.style.left = Math.random() * window.innerWidth + 'px';
-  tulip.style.width = 20 + Math.random()*20 + 'px';
+  tulip.style.width = 20 + Math.random()*30 + 'px';
   tulip.style.height = 'auto';
   tulip.style.animationDuration = (5 + Math.random()*5) + 's';
   document.body.appendChild(tulip);
