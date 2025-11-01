@@ -1,8 +1,10 @@
 const envelope = document.getElementById('envelope');
 const letter = document.getElementById('letter');
 const typedElem = document.getElementById('typed');
-const finalTulips = document.getElementById('finalTulips');
+const emojiTulips = document.getElementById('emojiTulips');
 const audio = document.getElementById('audio');
+
+let writing = false; // previene múltiples clicks
 
 const message = `Tulipanes
 
@@ -45,24 +47,28 @@ porque tú mereces eso y más.
 
 Tus tulipanes, al fin, en octubre. 🌷`;
 
-function createFallingTulip() {
-  const tulip = document.createElement('img');
-  tulip.src = 'assets/tulipan.png'; // imagen local
-  tulip.className = 'tulip';
-  tulip.style.left = Math.random() * window.innerWidth + 'px';
-  tulip.style.width = 20 + Math.random() * 50 + 'px';
-  tulip.style.height = 'auto';
-  tulip.style.animationDuration = (5 + Math.random()*5) + 's';
-  document.body.appendChild(tulip);
-  setTimeout(() => tulip.remove(), 10000);
+function createFallingEmoji() {
+  const emoji = document.createElement('div');
+  emoji.textContent = '🌷';
+  emoji.className = 'emoji-tulip';
+  emoji.style.left = Math.random() * window.innerWidth + 'px';
+  emoji.style.fontSize = 20 + Math.random() * 30 + 'px';
+  emoji.style.animationDuration = (4 + Math.random() * 4) + 's';
+  emojiTulips.appendChild(emoji);
+  setTimeout(() => emoji.remove(), 8000);
 }
 
-setInterval(createFallingTulip, 500);
+setInterval(createFallingEmoji, 400);
 
 envelope.addEventListener('click', () => {
+  if (writing) return;
+  writing = true;
+
   envelope.classList.add('open');
   letter.style.opacity = 1;
-  audio.play().catch(()=>{}); // evita errores en móviles
+
+  audio.play().catch(()=>{}); // evita error en móvil
+
   typeWriter(message, 0);
 });
 
@@ -70,13 +76,6 @@ function typeWriter(text, i) {
   if (i < text.length) {
     typedElem.textContent += text.charAt(i);
     i++;
-    setTimeout(() => typeWriter(text, i), 35); // más rápido
-  } else {
-    for (let j = 0; j < 20; j++) {
-      const t = document.createElement('span');
-      t.style.left = Math.random() * letter.offsetWidth + 'px';
-      t.style.top = Math.random() * letter.offsetHeight + 'px';
-      finalTulips.appendChild(t);
-    }
+    setTimeout(() => typeWriter(text, i), 35);
   }
 }
