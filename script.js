@@ -47,10 +47,10 @@ Tus tulipanes, al fin, en octubre. 🌷`;
 
 function createFallingTulip() {
   const tulip = document.createElement('img');
-  tulip.src = 'https://i.imgur.com/xZlfQ0n.png';
+  tulip.src = 'assets/tulipan.png'; // imagen local
   tulip.className = 'tulip';
   tulip.style.left = Math.random() * window.innerWidth + 'px';
-  tulip.style.width = 20 + Math.random()*30 + 'px';
+  tulip.style.width = 20 + Math.random() * 50 + 'px';
   tulip.style.height = 'auto';
   tulip.style.animationDuration = (5 + Math.random()*5) + 's';
   document.body.appendChild(tulip);
@@ -62,7 +62,7 @@ setInterval(createFallingTulip, 500);
 envelope.addEventListener('click', () => {
   envelope.classList.add('open');
   letter.style.opacity = 1;
-  audio.play();
+  audio.play().catch(()=>{}); // evita errores en móviles
   typeWriter(message, 0);
 });
 
@@ -70,12 +70,12 @@ function typeWriter(text, i) {
   if (i < text.length) {
     typedElem.textContent += text.charAt(i);
     i++;
-    setTimeout(() => typeWriter(text, i), 60);
+    setTimeout(() => typeWriter(text, i), 35); // más rápido
   } else {
     for (let j = 0; j < 20; j++) {
       const t = document.createElement('span');
-      t.style.left = Math.random()*letter.offsetWidth + 'px';
-      t.style.top = Math.random()*letter.offsetHeight + 'px';
+      t.style.left = Math.random() * letter.offsetWidth + 'px';
+      t.style.top = Math.random() * letter.offsetHeight + 'px';
       finalTulips.appendChild(t);
     }
   }
