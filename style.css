@@ -43,21 +43,24 @@ body {
   top: 10%;
   left: 5%;
   width: 90%;
-  max-height: 80vh;  /* altura máxima para PC y móvil */
+  max-height: 80vh;
+  min-height: 400px;
   background: #fffaf0;
   border-radius: 6px;
   padding: 20px;
   opacity: 0;
   font-size: 18px;
   line-height: 1.6;
-  overflow-y: auto;   /* scroll si el contenido es largo */
+  overflow-y: auto;
   box-sizing: border-box;
 }
 
 .tulip {
   position: fixed;
   pointer-events: none;
-  animation: fall linear infinite;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 @keyframes fall {
@@ -82,7 +85,7 @@ body {
   position: absolute;
   width: 25px;
   height: 25px;
-  background: url('https://i.imgur.com/xZlfQ0n.png') no-repeat center/contain;
+  background: url('assets/tulipan.png') no-repeat center/contain;
   animation: floatUp 1s ease-out forwards;
 }
 
