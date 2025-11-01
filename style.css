@@ -8,9 +8,10 @@ body {
 .envelope {
   width: 90vw;
   max-width: 500px;
+  height: 80vh;
   background: #fff;
   border-radius: 12px;
-  margin: 50px auto;
+  margin: 10vh auto;
   position: relative;
   box-shadow: 0 12px 24px rgba(0,0,0,0.2);
   cursor: pointer;
@@ -38,11 +39,10 @@ body {
 
 .letter {
   position: absolute;
-  top: 10%;
+  top: 5%;
   left: 5%;
   width: 90%;
-  max-height: 80vh;
-  min-height: 400px;
+  height: 90%;
   background: #fffaf0;
   border-radius: 6px;
   padding: 20px;
@@ -51,6 +51,7 @@ body {
   line-height: 1.6;
   overflow-y: auto;
   box-sizing: border-box;
+  z-index: 10;
 }
 
 .typed-text {
@@ -61,16 +62,16 @@ body {
 
 .emoji-tulips {
   position: fixed;
-  pointer-events: none;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .emoji-tulip {
   position: absolute;
-  font-size: 24px;
   pointer-events: none;
   user-select: none;
   animation-name: fall;
