@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta de Tulipanes 💌</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffe4e1, #fff0f5);
+    overflow-x: hidden;
+  }
+  .envelope {
+    width: 320px;
+    height: 220px;
+    background: #fff;
+    border-radius: 12px;
+    margin: 80px auto;
+    position: relative;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.5s;
+  }
+  .envelope::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0; 
+    height: 0;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-bottom: 110px solid #ffcad4;
+    border-radius: 12px 12px 0 0;
+    transition: transform 0.6s;
+    transform-origin: top;
+  }
+  .envelope.open::before {
+    transform: rotateX(180deg);
+  }
+  .letter {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 280px;
+    height: 180px;
+    background: #fffaf0;
+    border-radius: 6px;
+    padding: 20px;
+    opacity: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  .tulip {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    background: url('https://i.imgur.com/xZlfQ0n.png') no-repeat center center/contain;
+    pointer-events: none;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0.8; }
+  }
+  .typed-text {
+    border-right: .1em solid #000;
+    white-space: pre-wrap;
+    overflow: hidden;
+  }
+  .final-tulips {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .final-tulips span {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: url('https://i.imgur.com/xZlfQ0n.png') no-repeat center/contain;
+    animation: floatUp 1s ease-out forwards;
+  }
+  @keyframes floatUp {
+    0% { opacity: 0; transform: translateY(50px) scale(0); }
+    50% { opacity: 1; transform: translateY(0) scale(1.2); }
+    100% { opacity: 1; transform: translateY(-10px) scale(1); }
+  }
+</style>
+</head>
+<body>
+
+<div class="envelope" id="envelope">
+  <div class="letter" id="letter">
+    <div class="typed-text" id="typed"></div>
+    <div class="final-tulips" id="finalTulips"></div>
+  </div>
+</div>
+
+<audio id="audio" src="assets/tulipanes.mp3" preload="auto"></audio>
+
+<script>
+  function createFallingTulip() {
+    const tulip = document.createElement('div');
+    tulip.className = 'tulip';
+    tulip.style.left = Math.random() * window.innerWidth + 'px';
+    tulip.style.animationDuration = (5 + Math.random()*5) + 's';
+    tulip.style.width = 20 + Math.random()*20 + 'px';
+    tulip.style.height = tulip.style.width;
+    document.body.appendChild(tulip);
+    setTimeout(() => tulip.remove(), 10000);
+  }
+  setInterval(createFallingTulip, 500);
+
+  const envelope = document.getElementById('envelope');
+  const letter = document.getElementById('letter');
+  const typedElem = document.getElementById('typed');
+  const finalTulips = document.getElementById('finalTulips');
+  const audio = document.getElementById('audio');
+
+  const message = `Tulipanes
+
+El tiempo ha pasado lento y rápido a la vez.
+Es extraño — a veces siento que fue ayer cuando me declaré y dijiste que sí.
+Qué raro es el tiempo: cuando quiero que pase rápido, se detiene…
+pero cuando estoy a tu lado, vuela.
+
+¿Por qué será?
+Tal vez por lo que me haces sentir,
+por la manera en que puedes cambiar mi ánimo con una palabra,
+o porque contigo hasta el silencio se vuelve bonito y tranquilo.
+
+No lo sé con certeza, pero quizá sean todas esas razones —
+o más — por las que el tiempo, contigo, simplemente es distinto.
+
+Sé que debería ser más romántico, anotar más cosas,
+no dejar que los pequeños detalles se me escapen.
+
+Recuerdo que, en su momento, me contaste —como buena fan de Enjambre—
+que querías tus tulipanes en octubre.
+
+Admito que lo olvidé. Pensé en hacerte algo:
+un dibujo, una página web, una carta… pero nada me convencía.
+Quería que fuera algo más bonito, más tuyo.
+
+Si no me lo hubieras recordado, quizá ni lo habría traído a la memoria.
+Y sé que no te gusta pedir las cosas,
+porque te gusta que los gestos sean sinceros,
+que se note que te escucho y estoy pendiente de ti.
+
+Que lo olvidara da la impresión contraria,
+así que discúlpame por eso.
+
+Pero esta vez no pienso quedarme de brazos cruzados.
+
+Prometo anotar más, recordar más,
+y sobre todo, estar más atento —
+porque tú mereces eso y más.
+
+Tus tulipanes, al fin, en octubre. 🌷`;
+
+  envelope.addEventListener('click', () => {
+    envelope.classList.add('open');
+    letter.style.opacity = 1;
+    audio.play();
+    typeWriter(message, 0);
+  });
+
+  function typeWriter(text, i) {
+    if (i < text.length) {
+      typedElem.textContent += text.charAt(i);
+      i++;
+      setTimeout(() => typeWriter(text, i), 60);
+    } else {
+      for (let j = 0; j < 20; j++) {
+        const t = document.createElement('span');
+        t.style.left = Math.random()*letter.offsetWidth + 'px';
+        t.style.top = Math.random()*letter.offsetHeight + 'px';
+        finalTulips.appendChild(t);
+      }
+    }
+  }
+</script>
+
+</body>
+</html>
