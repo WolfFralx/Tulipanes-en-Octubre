@@ -12,7 +12,7 @@ body {
   padding-bottom: 70%;
   background: #fff;
   border-radius: 12px;
-  margin: 80px auto;
+  margin: 50px auto;
   position: relative;
   box-shadow: 0 12px 24px rgba(0,0,0,0.2);
   cursor: pointer;
@@ -43,14 +43,14 @@ body {
   top: 10%;
   left: 5%;
   width: 90%;
-  height: 80%;
+  max-height: 80vh;  /* altura máxima para PC y móvil */
   background: #fffaf0;
   border-radius: 6px;
   padding: 20px;
   opacity: 0;
   font-size: 18px;
   line-height: 1.6;
-  overflow-y: auto;
+  overflow-y: auto;   /* scroll si el contenido es largo */
   box-sizing: border-box;
 }
 
