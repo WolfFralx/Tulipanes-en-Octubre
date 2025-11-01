@@ -74,6 +74,7 @@ body {
   position: absolute;
   pointer-events: none;
   user-select: none;
+  font-size: 24px;
   animation-name: fall;
   animation-timing-function: linear;
   animation-iteration-count: 1;
